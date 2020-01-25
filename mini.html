@@ -1,0 +1,63 @@
+<!DOCTYPE html> <!-- Se trata de un documento HTML -->
+<html lang="es">  <!-- Comienzo del documento en español -->
+<!-- <elemento atributo="valor"> Contenido </elemento> (El atributo no es obligatorio )-->
+    <head>  <!-- Cabecera del documento: titulo, autor, etc -->
+        <meta charset="UTF-8">
+        <title>Un mini ejemplo</title>
+    </head>
+    <body>  <!-- Contenido en si del documento -->
+        <div id="date"> Fecha 25/01/2020 </div> <!-- Seccion con estilo comun con atributo class -->
+        <div id="content"> Un poco de texto </div>
+        <div id="elements">
+            <b>negrita</b>
+            <i>italica</i>
+            <p style="font-family: Arial; color: #FF0000;">nuevo parrafo</p>
+            <h1>Titulo H1</h1>
+            <h2>Titulo H2</h2>
+            <h3>Titulo H3</h3>
+            <h4>Titulo H4</h4>
+            <h5>Titulo H5</h5>
+            <h6>Titulo H6</h6>
+            <pre>Preserva el formato sin temor que ninguna parte sea&nbsp;considerado html</pre>
+            <span style="color:red"> Como div pero el estilo se especifica dentro </span>
+            <ul>
+                <li>Uno</li>
+                <li>Dos</li>
+                <li>Tres</li>
+            </ul>
+            <ol>
+                <li>Uno</li>
+                <li>Dos</li>
+                <li>Tres</li>
+            </ol>
+            <a href="https://24timezones.com/es_husohorario/madrid_hora_actual.php">Hora actual en Madrid</a>
+            <br>
+            <img src="C:\Users\carlo\OneDrive - Telefonica\PycharmProjects\BigData_Python\Tema2\img\Carlos Rabazo 7.jpg" alt="Texto si no se encuentra la imagen" width="300">
+            <br>
+            <table border="1" cellpadding="1" cellspacing="2">
+                <tr>
+                    <td>Fila 1, Columna 1</td>
+                    <td>Fila 1, Columna 2</td>
+                </tr>
+                <tr>
+                    <td>Fila 2, Columna 1</td>
+                    <td>Fila 2, Columna 2</td>
+                </tr>
+            </table>
+            <form action="/trata.php">
+                Nombre:
+                <input type="text" name="firstname" value="Carlos">
+                <br>
+                Apellido:
+                <input type="text" name="lastname" value="Rabazo">
+                <br>
+                <input type="submit" value="Enviar">
+            </form>
+        </div>
+        <!-- Los atributos mas usuales: -->
+        <!-- id: identifica un elemento dentro de la página. Debería ser único en esa página -->
+        <!-- title: el texto que se mostrará al dejar el cursor sobre el elemento -->
+        <!-- class: asocia un elemento a una hoja de estilo CSS que dará formato al elemento -->
+        <!-- style: indica un formato directamente -->
+    </body>
+</html>
