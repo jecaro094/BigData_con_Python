@@ -1,0 +1,1 @@
+python -u  datos_diarios.py > data/datos_salida.txt &
