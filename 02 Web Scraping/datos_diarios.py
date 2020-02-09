@@ -32,7 +32,7 @@ def job():
 # NOTE Mirar en 'programacion.py' para definir cada cuánto quiero que se ejecute "job"   
 #schedule.every().minute.at(":00").do(job)
 #schedule.every().hour.at(":52:59").do(job)
-schedule.every().day.at("17:55:59").do(job)
+schedule.every().day.at("23:59:59").do(job)
 
 while True:
     schedule.run_pending()
