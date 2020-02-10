@@ -28,8 +28,7 @@
 
 **Cada vez que quiera ejecutar el fichero en python con**
 
--   
-<span style="color:green">**python -u datos_diarios.py > data/datos_salida.txt &**
+-  <span style="color:green">**python -u datos_diarios.py > data/datos_salida.txt &**
 
 **Para WHATSAPP, poner estas credenciales por terminal:**
 
