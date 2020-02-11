@@ -41,9 +41,9 @@ def job():
                        to=to_whatsapp_number)
 
 # NOTE Mirar en 'programacion.py' para definir cada cuánto quiero que se ejecute "job"   
-schedule.every().minute.at(":00").do(job)
-#schedule.every().hour.at(":52:59").do(job)
-#schedule.every().day.at("23:59:59").do(job)
+#schedule.every().minute.at(":00").do(job)
+#schedule.every().hour.at(":35:00").do(job)
+schedule.every().day.at("23:59:00").do(job)
 
 while True:
     schedule.run_pending()
