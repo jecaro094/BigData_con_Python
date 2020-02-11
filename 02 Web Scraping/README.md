@@ -25,3 +25,21 @@
 - **<span style="color:green">kill -9 _PID_**
 
 ---
+
+**Cada vez que quiera ejecutar el fichero en python con**
+
+-  <span style="color:green">**python -u datos_diarios.py > data/datos_salida.txt &**
+
+**Para WHATSAPP, poner estas credenciales por terminal:**
+
+- <span style="color:green">**GOOGLE_DRIVE/MASTER_BIG_DATA/02_WEB_SCRAPING/credenciales.txt**
+
+**Y activar/[desactivar] el entorno de python**
+
+
+
+- **<span style="color:green">source ./pywhatsapp/bin/activate**
+-   **<span style="color:green">deactivate**
+
+
+---
