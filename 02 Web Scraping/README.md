@@ -43,3 +43,7 @@
 
 
 ---
+
+**<span style="color:red">Para acabar de implementar la transferencia de fotos a amazon ws:**
+
+- **<span style="color:green">pip install boto3**
