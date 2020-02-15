@@ -7,7 +7,8 @@ import json
 serviceurl = 'https://maps.googleapis.com/maps/api/geocode/json?'
 
 def devuelve_coordenadas():
-    address = input('Entrar ciudad: ')
+    print('\n')
+    address = input('Ciudad a buscar: ')
     url = serviceurl + urllib.parse.urlencode({'sensor':'false','address':address,'key':'AIzaSyDRDhPvMeDqkojPCVvKeTr471lWM-thXr4'})
     #print('Recuperando los datos de la ciudad', url)
     uh = urllib.request.urlopen(url)
@@ -23,7 +24,7 @@ def devuelve_coordenadas():
     lng = js["results"][0]["geometry"]["location"]["lng"]
     print('lat:', lat, 'lng', lng)
     location = js['results'][0]['formatted_address']
-    print(location)
+    print(location + '\n')
     return lat, lng
 
 def catastro(lat_to_search, lon_to_search):
@@ -53,61 +54,20 @@ def catastro(lat_to_search, lon_to_search):
 
     html = driver.find_element_by_xpath("/html") # / se usa para referirnos al pricipio del documento (camino absoluto)
     print("##################print(html.text)#####################")
-    print(html.text)
+    print(html)
 
-    # Flexibilidad de XPath es que permite encadenar varios pasos
-    head = driver.find_element_by_xpath("/html/head")
-    body = driver.find_element_by_xpath("/html/body")
-    # Excepcion NoSuchElementException si no lo encuentra (usar try catch)
-    # IMPORTANTE: Cualquier busqueda en selenium devuelve un elemento de tipo WebElement que es un puntero al elemento
-    # seleccionado. La variable no contiene al elemento, lo señala
-    html2 = body.find_element_by_xpath("/html") # Usamos body y no driver como punto de partida para demostrar que podemos
-    # forzar a acceder de nuevo a la raiz y tomar el elemento html (se puede hacer por ser un señalador
-    # OJO: driver.execute_script("window.history.go(-1)")
-    # print(body.text) no funcionaria
-
-    # COMPONENTE *
-    # Nombre de los elementos que son hijos de body
     hijos = driver.find_elements_by_xpath("/html/body/*") # No nos importa el nombre del elto en concreto
     print("####################print(element.tag_name)##################")
-    for element in hijos:
-        print(element.tag_name)
+    for i, element in enumerate(hijos):
+        print(f'Elemento {i}: ' + element.text + '\n')
 
-    divs = driver.find_elements_by_xpath("/html/body/*/div")
-    print(len(divs))
 
-    # COMPONENTE . El punto indica que el camino sigue desde la posicion actual
-    divs = body.find_elements_by_xpath("./*/div")
-    print(len(divs))
 
-    # COMPONENTE // Salta varios niveles (cuantos valores div son descendientes de body
-    divs = driver.find_elements_by_xpath("/html/body//div")
-    print(len(divs))
-    labels = driver.find_elements_by_xpath("//label")
-    print(len(labels))
-
-    id = "ctl00_Contenido_tblInmueble"
-    div = driver.find_element_by_id(id)
-    label = div.find_element_by_xpath("//label")
-    print(label.text)
-
-    # FILTROS [...]
-    # Permiten indicar condiciones adicionales que deben cumplir los elementos seleccionados
-    # Que tipo de finca le corresponde esta referencia catastral
-    e = driver.find_elements_by_xpath("(//label)[position()=1]")
-    # A pesar de ser solo uno, recibimos un WebElement
-    # OJO XPath tiene como primer elemento el 1, no el 0
-    print("####################print(e[0].text)####################")
-    print(e[0].text)
-
-    e = driver.find_elements_by_xpath("(//label)[1]")
-    print(e[0].text)
 
     # Cuando hayamos terminado de usar Selenium convene cerrar el driver para liberar recursos
     driver.close()
 
 
 lat, lon = devuelve_coordenadas()
-print('LATITUD:', lat, 'LONGITUD', lon)
 
 catastro(lat,lon)
