@@ -17,8 +17,8 @@ coord.click()
 
 # Escribir texto
 # Primero nos situamos en la casilla de coordenadas - id="ctl00_Contenido_txtLatitud"
-lat=driver.find_element_by_id("ctl00_Contenido_txtLatitud")
-lon=driver.find_element_by_id("ctl00_Contenido_txtLongitud")
+lat = driver.find_element_by_id("ctl00_Contenido_txtLatitud")
+lon = driver.find_element_by_id("ctl00_Contenido_txtLongitud")
 
 # Introducimos la latitud y longitud usando send_keys()
 latitudCimaTeide = "28.2723368"
