@@ -1,6 +1,7 @@
 from datetime import datetime
 from twilio.rest import Client
 from botocore.client import Config
+import pandas as pd
 import matplotlib.pyplot as plt
 import os
 import os.path
@@ -37,7 +38,7 @@ def generate_plot(completeName):
         for row in readCSV:
             if (row[0] + row[1] + row[2] == plazaEspaña and row[3] == oxidoNitrogeno):
                 #print(row[0] + row[1] + row[2] + row[3])
-                plt.title("Óxido de Nitrógeno: " + row[8] + "/" + row[7] + "/" + row[6])
+                #plt.title("Óxido de Nitrógeno: " + row[8] + "/" + row[7] + "/" + row[6])
                 hora = 0
                 desp = 9
                 vs = []
@@ -48,10 +49,10 @@ def generate_plot(completeName):
                         horas.append(hora)
                         dict_levels.update( {hora : int(row[desp + 2 * hora])} )
                     hora += 1
-                plt.plot(horas, vs)
-                plt.savefig('testplot.png')
+                #plt.plot(horas, vs)
+                #plt.savefig('testplot.png')
                 #plt.show() # For showing figure
-                plt.clf() # For clearing figure
+                #plt.clf() # For clearing figure
         return dict_levels
 
 def get_files(folder_name):
@@ -84,31 +85,28 @@ def job():
     with open(completeName, 'wb') as csvfile:
         csvfile.write(resp.content)
 
+    # NOTE Defino dataframe con los valores de las emisiones para cada día
+    horas = range(0,25)
+    df = pd.DataFrame(columns=horas)
+    average_df = pd.DataFrame(columns=horas)
+
     # PLOT / Getting dictionary for each txt file
     for index, textFile in enumerate(get_files('data')):
         completeName = os.path.join(save_path, textFile)  
         dictionary_file = generate_plot(completeName)
+        df.loc[textFile] = pd.Series(dictionary_file)
 
-        # Sum of all files values ----------------> 'dictionary_sum'
-        # Number of elements summed for key ------> 'counter_key'
-        for key, value in dictionary_file.items():
-            if key not in dictionary_sum.keys():
-                dictionary_sum[key] = value
-                counter_key[key] = 1
-            else:
-                dictionary_sum[key] += value
-                counter_key[key] += 1
+    # NOTE Media de las emisiones de gases
+    df.loc['media'] = pd.Series(df.mean())
+    #print(df)
+    
+    ax = plt.gca()
+    df.iloc[0:-2].T.plot(kind='line',legend=True,ax=ax)
+    df.iloc[-1].T.plot(kind='line',lw=3, color='black',y='media',legend=True, ax=ax)
+    #plt.show()
+    plt.savefig('testplot.png')
 
-    # Mean for each key ----------------------> 'dictionary_sum'
-    for key, value in sorted(dictionary_sum.items()):
-        dictionary_mean.append(dictionary_sum[key] / counter_key[key])
-
-    # Plot with mean values inside
-    horas = range(0,len(dictionary_mean))
-    plt.title("Media óxido de Nitrógeno")
-    plt.plot(horas, dictionary_mean)
-    plt.savefig('testplot.png') 
-    #plt.show()           
+       
 
 
     # NOTE Salida por pantalla
@@ -160,8 +158,7 @@ def job():
     # Enviar mensaje de WHATSAPP
     
     clientW = Client(twilioAccountSID,twilioAuthToken)
-    clientW.messages.create(body=whatsapp_message
-    , from_=phoneNumberFrom, to=phoneNumberTo, media_url=url)
+    clientW.messages.create(from_=phoneNumberFrom, to=phoneNumberTo, media_url=url)
     
 
 # NOTE Do this because I can only receive messages in less than 24 hours interval
@@ -181,8 +178,8 @@ def refresh_whatsapp():
 #schedule.every().minute.at(":00").do(job)
 #schedule.every().hour.at(":35:00").do(job)
 
-schedule.every().day.at("22:34:00").do(job)
-schedule.every().day.at("22:35:30").do(refresh_whatsapp)
+schedule.every().day.at("23:59:00").do(job)
+schedule.every().day.at("23:59:30").do(refresh_whatsapp)
 
 while True:
     schedule.run_pending()
