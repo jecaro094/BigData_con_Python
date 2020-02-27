@@ -103,7 +103,7 @@ def job():
     ax = plt.gca()
     df.iloc[0:-2].T.plot(kind='line',legend=True,ax=ax)
     df.iloc[-1].T.plot(kind='line',lw=3, color='black',y='media',legend=True, ax=ax)
-    #plt.show()
+    plt.show()
     plt.savefig('testplot.png')
 
        
@@ -157,8 +157,8 @@ def job():
 
     # Enviar mensaje de WHATSAPP
     
-    clientW = Client(twilioAccountSID,twilioAuthToken)
-    clientW.messages.create(from_=phoneNumberFrom, to=phoneNumberTo, media_url=url)
+    #clientW = Client(twilioAccountSID,twilioAuthToken)
+    #clientW.messages.create(from_=phoneNumberFrom, to=phoneNumberTo, media_url=url)
     
 
 # NOTE Do this because I can only receive messages in less than 24 hours interval
@@ -178,14 +178,14 @@ def refresh_whatsapp():
 #schedule.every().minute.at(":00").do(job)
 #schedule.every().hour.at(":35:00").do(job)
 
-schedule.every().day.at("23:59:00").do(job)
-schedule.every().day.at("23:59:30").do(refresh_whatsapp)
+#schedule.every().day.at("23:58:00").do(job)
+#schedule.every().day.at("23:59:30").do(refresh_whatsapp)
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+#while True:
+#    schedule.run_pending()
+#    time.sleep(1)
 
 
-#job()
+job()
 #refresh_whatsapp()
 #print(get_files('data'))
