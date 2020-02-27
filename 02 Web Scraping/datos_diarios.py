@@ -1,11 +1,8 @@
 from datetime import datetime
-from twilio.rest import Client
-from botocore.client import Config
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
 import os.path
-import schedule
 import time
 import requests
 import csv
